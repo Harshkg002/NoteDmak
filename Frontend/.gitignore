@@ -22,4 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-C:\Users\Kage\Documents\Notes_web(Mern)\Backend\.env
+
+Backend\.env

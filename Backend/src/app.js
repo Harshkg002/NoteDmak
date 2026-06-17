@@ -34,5 +34,3 @@ async function startServer() {
 }
 
 startServer();
-
-//mongodb+srv://harshkgupta002_db_user:ItU8lnHRBD2U8DqV@cluster0.xbjeek3.mongodb.net/?appName=Cluster0
