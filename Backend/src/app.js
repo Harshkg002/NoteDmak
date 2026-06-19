@@ -11,11 +11,11 @@ const app= express();
 
 
 //middleware these are usually for authentication check / rate limiting
-app.use(express.json())//this parse the incoming json files and gives us req.body to access all elements.
-app.use(rateLimiter);
 app.use(cors({
     origin:"http://localhost:5173",
 }));
+app.use(express.json())//this parse the incoming json files and gives us req.body to access all elements.
+app.use(rateLimiter);
 app.use((req,res,next)=>{
     console.log(`Request is send ${req.method} and url is ${req.url}`); 
     next();
