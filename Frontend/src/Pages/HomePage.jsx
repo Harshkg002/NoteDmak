@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import RateLimitedUI from '../components/RateLimitUI';
 import axios from "axios";
 import toast from "react-hot-toast";
+import NoteCard from '../components/NoteCard';
 
 const HomePage = () => {
   const [isRateLimited, setIsRatelimited]=useState(false);
