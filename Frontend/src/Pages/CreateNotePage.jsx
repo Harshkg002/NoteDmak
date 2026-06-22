@@ -1,14 +1,51 @@
+import axios from 'axios';
 import { ArrowLeftIcon } from 'lucide-react';
 import React, { useState } from 'react'
-import { Link } from 'react-router';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router';
+
 
 const CreateNotePage = () => {
   const [title,setTitle]= useState("");
   const [content,setContent]=useState("");
-  const [Loading,isLoading] = useState(false);
+  const navigate = useNavigate();
+  const [Loading,setLoading] = useState(false);
+  const [rateLimited, setRateLimited] = useState(false);
 
-  const handleSubmit = () =>{
+  const handleSubmit = async(e) =>{
+    e.preventDefault();
+    if(!title.trim() || !content.trim()){
+      setRateLimited(true);
+      toast.error("All field are required!!");
+      setTimeout(() => {
+          setRateLimited(false);
+          }, 4000);
+      return;
+    }
+    setLoading(true)
+    try {
+      const tit=title.replace(/^./, char => char.toUpperCase());
+      await axios.post("http://localhost:5001/notes",{title:tit,content});
+      toast.success("Note created successfully. :)")
+      setTitle("");
+      setContent("");
+      //navigate("/")
+    } catch (error) {
+      console.log(error.message);
+      if(error.response?.status === 429){
+        setRateLimited(true);
+          toast.error("Wait for this toast to disappear before trying again",{
+            duration:4000,
+            icon:"💀"
+          })
+          setTimeout(() => {
+          setRateLimited(false);
+          }, 4000); 
+        }else{
+          toast.error("Failed to create Note. :(");
+        }
 
+    } finally{ setLoading(false)}
   }
   return (
     <div className='min-h-screen '>
@@ -21,6 +58,36 @@ const CreateNotePage = () => {
           <div className='card bg-base-100'>
             <div className='card-body'>
               <h2 className='card-title text-2xl mb-4'>Create New Note</h2>
+              <form onSubmit={handleSubmit}>
+                <div className='form-control mb-4'>
+                  <label className="label">
+                    <span className='label-text'>Title</span>
+                  </label>
+                  <input type="text" 
+                    placeholder='Note title' 
+                    className='input input-bordered'
+                    value={title} 
+                    onChange={(e)=>setTitle(e.target.value)} />
+                </div>
+
+                <div className='form-control mb-4'>
+                  <label className="label">
+                    <span className='label-text'>Content</span>
+                  </label>
+                  <textarea
+                    placeholder='Write your note here...' 
+                    className='textarea textarea-bordered h-32'
+                    value={content} 
+                    onChange={(e)=>setContent(e.target.value)} />
+                </div>
+                
+                <div className="card-actions justify-end">
+                  <button type='submit' className='btn btn-primary' disabled={Loading||rateLimited}>
+                    {Loading? "Creating...": rateLimited
+                    ? "Rate Limited": "Create Note"}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
