@@ -15,11 +15,7 @@ const CreateNotePage = () => {
   const handleSubmit = async(e) =>{
     e.preventDefault();
     if(!title.trim() || !content.trim()){
-      setRateLimited(true);
       toast.error("All field are required!!");
-      setTimeout(() => {
-          setRateLimited(false);
-          }, 4000);
       return;
     }
     setLoading(true)
