@@ -5,16 +5,18 @@ import { formateDate } from '../Libs/DateFromat';
 import toast from 'react-hot-toast';
 import api from '../Libs/axios';
 
-const NoteCard = ({note}) => {
+const NoteCard = ({note,setNudes}) => {
     const handleDelete = async(e,id,tit)=>{
         e.preventDefault();
         if(!window.confirm("Do you wanna delete the note"))return;
         
         try {
-            await api.delete(`/note/${id}`);
-            toast.success(tit)
+            await api.delete(`/notes/${id}`);
+            setNudes((prev => prev.filter( note => note._id !== id))) // this will update notes usestate of homepage
+            toast.success(`Note ${tit} deleted successfully.`);
         } catch (error) {
-            toast.error(tit);
+            console.log("Error in handleDelete \n",error);
+            toast.error("Failed to deleted note!!");
         }
 
     }
