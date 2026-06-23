@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { ArrowLeftIcon } from 'lucide-react';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router';
+import api from '../Libs/axios';
 
 
 const CreateNotePage = () => {
@@ -21,7 +21,7 @@ const CreateNotePage = () => {
     setLoading(true)
     try {
       const tit=title.replace(/^./, char => char.toUpperCase());
-      await axios.post("http://localhost:5001/notes",{title:tit,content});
+      await api.post("/notes",{title:tit,content});
       toast.success("Note created successfully. :)")
       setTitle("");
       setContent("");
