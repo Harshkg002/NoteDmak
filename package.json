@@ -1,5 +1,25 @@
 {
   "dependencies": {
     "cors": "^2.8.5"
-  }
+  },
+  "name": "notes_web(mern)",
+  "version": "1.0.0",
+  "description": "Aprender MERN creando una aplicación personalizada para tomar nota",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm install --prefix Backend && npm --prefix Frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harshkg002/NoteDmak.git"
+  },
+  "keywords": [],
+  "author": "Kage",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Harshkg002/NoteDmak/issues"
+  },
+  "homepage": "https://github.com/Harshkg002/NoteDmak#readme"
 }
