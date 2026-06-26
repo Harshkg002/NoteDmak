@@ -8,7 +8,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "test": "npm install --prefix Backend && npm --prefix Frontend"
+    "build": "npm install --prefix Backend && npm --prefix Frontend && npm run build --prefix Frontend"
   },
   "repository": {
     "type": "git",
